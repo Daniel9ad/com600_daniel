@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla de Operaciones</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Tabla de Operaciones</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>A</th>
+          <th>Operación</th>
+          <th>B</th>
+          <th>=</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% operaciones.forEach(op=> { %>
+          <tr>
+            <td>
+              <%= op.a %>
+            </td>
+            <td>
+              <%= op.operacion %>
+            </td>
+            <td>
+              <%= op.b %>
+            </td>
+            <td>=</td>
+            <td>
+              <%= op.resultado %>
+            </td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+    <a href="/">Volver</a>
+  </div>
+</body>
+
+</html>

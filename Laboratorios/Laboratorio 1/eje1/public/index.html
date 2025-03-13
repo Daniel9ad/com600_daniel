@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Calculadora Web</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Calculadora Web</h1>
+
+    <div class="input-group">
+      <label for="a">Valor A:</label>
+      <input type="number" id="a" step="any">
+    </div>
+
+    <div class="input-group">
+      <label for="b">Valor B:</label>
+      <input type="number" id="b" step="any">
+    </div>
+
+    <div class="input-group">
+      <label for="operacion">Operación:</label>
+      <select id="operacion">
+        <option value="sumar">Sumar</option>
+        <option value="restar">Restar</option>
+        <option value="multiplicar">Multiplicar</option>
+        <option value="dividir">Dividir</option>
+      </select>
+    </div>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado" class="resultado"></div>
+  </div>
+
+  <script>
+    async function calcular() {
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+      const operacion = document.getElementById('operacion').value;
+
+      if (!a || !b) {
+        document.getElementById('resultado').innerHTML = 'Por favor ingrese ambos valores';
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/calcular', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ a, b, operacion })
+        });
+
+        const data = await response.json();
+        document.getElementById('resultado').innerHTML =
+          `${data.expresion} = ${data.resultado}`;
+      } catch (error) {
+        document.getElementById('resultado').innerHTML =
+          'Error al realizar el cálculo';
+        console.error('Error:', error);
+      }
+    }
+  </script>
+</body>
+
+</html>
