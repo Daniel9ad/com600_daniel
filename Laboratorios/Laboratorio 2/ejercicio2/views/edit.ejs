@@ -1,0 +1,6 @@
+<h2>Actualizar</h2>
+<form action="/edit/<%= user.id %>" method="POST">
+  <label>Nombre: <input type="text" name="nombre" required value="<%= user.nombre %>"></label>
+  <label>Correo: <input type="text" name="correo" required value="<%= user.correo %>"></label>
+  <button type="submit">Actualizar</button>
+</form>
