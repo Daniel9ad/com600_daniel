@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "daniel31415"
+      POSTGRES_DB: db_ventas
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  ms-clientes:
+    build: ./ms-clientes
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+    env_file:
+      ./ms-clientes/.env
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASS: "daniel31415"
+      DB_NAME: db_ventas
+    depends_on:
+      - postgres
+
+  ms-facturas:
+    build: ./ms-facturas
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+    env_file:
+      ./ms-facturas/.env
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASS: "daniel31415"
+      DB_NAME: db_ventas
+    depends_on:
+      - postgres
+
+  ms-productos:
+    build: ./ms-productos
+    ports:
+      - "3003:3000"
+    networks:
+      - app-network
+    env_file:
+      ./ms-productos/.env
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASS: "daniel31415"
+      DB_NAME: db_ventas
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
