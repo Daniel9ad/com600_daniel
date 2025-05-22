@@ -1,0 +1,43 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Libro {
+  id: Int!
+  titulo: String!
+  autor: String!
+  editorial: String!
+  anio: Int!
+  descripcion: String!
+  numeroPagina: Int!
+}
+
+type Query {
+  libros: [Libro!]!
+  libro(id: Int!): Libro!
+}
+
+type Mutation {
+  createLibro(createLibroInput: CreateLibroInput!): Libro!
+  updateLibro(updateLibroInput: UpdateLibroInput!): Libro!
+  removeLibro(id: Int!): Boolean!
+}
+
+input CreateLibroInput {
+  titulo: String!
+  autor: String!
+  editorial: String!
+  anio: Int!
+  descripcion: String!
+  numeroPagina: Int!
+}
+
+input UpdateLibroInput {
+  titulo: String
+  autor: String
+  editorial: String
+  anio: Int
+  descripcion: String
+  numeroPagina: Int
+  id: Int!
+}
