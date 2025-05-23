@@ -1,0 +1,40 @@
+# Etapa de construcción
+FROM golang:1.23-alpine AS builder
+
+WORKDIR /app
+
+# Instalar dependencias del sistema
+RUN apk add --no-cache git ca-certificates tzdata
+
+# Copiar go mod y sum files
+COPY go.mod go.sum ./
+
+# Descargar dependencias
+RUN go mod download
+
+# Copiar código fuente
+COPY . .
+
+# Construir la aplicación
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+
+# Etapa de producción
+FROM alpine:latest
+
+# Instalar ca-certificates para HTTPS
+RUN apk --no-cache add ca-certificates curl tzdata
+
+WORKDIR /root/
+
+# Copiar el binario desde builder stage
+COPY --from=builder /app/main .
+
+# Crear usuario no-root
+RUN adduser -D -s /bin/sh appuser
+USER appuser
+
+# Exponer puerto
+EXPOSE 3000
+
+# Comando por defecto
+CMD ["./main"]
