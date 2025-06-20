@@ -1,0 +1,51 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Reserva {
+  id: Int!
+  eventoId: String!
+  usuarioId: String!
+  fechaReserva: DateTime
+  fechaEntrada: DateTime
+  fechaSalida: DateTime
+  estado: String!
+  totalPagar: Float!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  reservas: [Reserva!]!
+  reserva(id: Int!): Reserva!
+}
+
+type Mutation {
+  createReserva(createReservaInput: CreateReservaInput!): Reserva!
+  updateReserva(updateReservaInput: UpdateReservaInput!): Reserva!
+  removeReserva(id: Int!): Boolean!
+}
+
+input CreateReservaInput {
+  eventoId: String!
+  usuarioId: String!
+  fechaReserva: String!
+  fechaEntrada: String!
+  fechaSalida: String!
+  estado: String!
+  totalPagar: Int!
+}
+
+input UpdateReservaInput {
+  eventoId: String
+  usuarioId: String
+  fechaReserva: String
+  fechaEntrada: String
+  fechaSalida: String
+  estado: String
+  totalPagar: Int
+  id: Int!
+}
